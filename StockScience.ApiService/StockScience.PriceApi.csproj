@@ -10,7 +10,4 @@
     <ProjectReference Include="..\StockScience.ServiceDefaults\StockScience.ServiceDefaults.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-  </ItemGroup>
-
 </Project>
