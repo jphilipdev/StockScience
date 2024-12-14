@@ -1,4 +1,5 @@
 using StockScience.PriceApi.Domain.Prices;
+using StockScience.PriceApi.Domain.Stocks;
 using StockScience.PriceApi.Handlers;
 using StockScience.PriceApi.PriceProduction;
 using StockScience.PriceApi.Repositories;
@@ -24,6 +25,7 @@ builder.Services.AddSingleton<StocksRepository>();
 builder.Services.AddSingleton<PriceRequestsRepository>();
 
 builder.Services.AddSingleton<StockPriceCalculator>();
+builder.Services.AddSingleton<StockPopularity>();
 
 var app = builder.Build();
 

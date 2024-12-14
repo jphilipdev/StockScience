@@ -21,7 +21,7 @@ namespace StockScience.PriceApi.Handlers
                         var price = pricesRepository.GetPrice(stock.Symbol, now);
                         if(price == null)
                         {
-                            Console.WriteLine($"No price yet for symbol: {stock.Symbol}");
+                            Console.WriteLine($"No price yet for symbol: {stock.Symbol} at {now}");
                         }
                         else
                         {
