@@ -1,4 +1,6 @@
+using StockScience.PriceApi.Domain.Prices;
 using StockScience.PriceApi.Handlers;
+using StockScience.PriceApi.PriceProduction;
 using StockScience.PriceApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +11,14 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddProblemDetails();
 
+builder.Services.AddHostedService<PriceProducerService>();
+
+builder.Services.AddSingleton<PriceProductionManager>();
+builder.Services.AddSingleton<PricesProducer>();
 builder.Services.AddSingleton<StockHandler>();
-builder.Services.AddSingleton<IPricesRepository, PricesRepository>();
+builder.Services.AddSingleton<PricesRepository>();
+builder.Services.AddSingleton<StocksRepository>();
+builder.Services.AddSingleton<StockPriceCalculator>();
 
 var app = builder.Build();
 

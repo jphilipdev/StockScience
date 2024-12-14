@@ -1,10 +1,8 @@
-﻿using StockScience.PriceApi.Domain.Prices;
-using StockScience.PriceApi.Repositories;
-using System.Globalization;
+﻿using StockScience.PriceApi.Repositories;
 
 namespace StockScience.PriceApi.Handlers
 {
-    public class StockHandler(IPricesRepository pricesRepository)
+    public class StockHandler(PricesRepository pricesRepository)
     {
         public int? GetPrice(string symbol)
         {
@@ -16,7 +14,7 @@ namespace StockScience.PriceApi.Handlers
                 return null;
             }
 
-            Console.WriteLine($"Got price for {symbol}: ${lastPrice.Price} at ${lastPrice.DateTime.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture)}");
+            Console.WriteLine($"Got price {lastPrice}");
             return lastPrice.Price;
         }
     }
