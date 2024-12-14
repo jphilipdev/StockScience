@@ -35,11 +35,6 @@ namespace StockScience.PriceApi.PriceProduction
 
                     worker.RunWorkerAsync();
                 }
-
-                //while (!cancellationToken.IsCancellationRequested)
-                //{
-                //}
-
             }
         }
 

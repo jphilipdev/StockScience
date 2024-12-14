@@ -12,12 +12,16 @@ builder.AddServiceDefaults();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddHostedService<PriceProducerService>();
-
 builder.Services.AddSingleton<PriceProductionManager>();
 builder.Services.AddSingleton<PricesProducer>();
+
 builder.Services.AddSingleton<StockHandler>();
+builder.Services.AddSingleton<PopularStocksHandler>();
+
 builder.Services.AddSingleton<PricesRepository>();
 builder.Services.AddSingleton<StocksRepository>();
+builder.Services.AddSingleton<PriceRequestsRepository>();
+
 builder.Services.AddSingleton<StockPriceCalculator>();
 
 var app = builder.Build();
@@ -31,6 +35,12 @@ app.MapGet("/stock/{symbol}", (StockHandler stockHandler, string symbol) =>
     return stockHandler.GetPrice(symbol);
 })
 .WithName("GetStockPrice");
+
+app.MapGet("/popular-stocks", (PopularStocksHandler popularStocksHandler) =>
+{
+    return popularStocksHandler.GetPopularStocks();
+})
+.WithName("GetPopularStocks");
 
 app.MapDefaultEndpoints();
 
