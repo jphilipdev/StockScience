@@ -17,6 +17,7 @@ builder.Services.AddSingleton<PricesProducer>();
 
 builder.Services.AddSingleton<StockHandler>();
 builder.Services.AddSingleton<PopularStocksHandler>();
+builder.Services.AddSingleton<SumStocksHandler>();
 
 builder.Services.AddSingleton<PricesRepository>();
 builder.Services.AddSingleton<StocksRepository>();
@@ -41,6 +42,12 @@ app.MapGet("/popular-stocks", (PopularStocksHandler popularStocksHandler) =>
     return popularStocksHandler.GetPopularStocks();
 })
 .WithName("GetPopularStocks");
+
+app.MapGet("/sum-stocks", (SumStocksHandler sumStocksHandler) =>
+{
+    return sumStocksHandler.GetSumOfStocks();
+})
+.WithName("GetSumStocks");
 
 app.MapDefaultEndpoints();
 

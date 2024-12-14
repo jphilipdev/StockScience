@@ -10,10 +10,20 @@ namespace StockScience.PriceApi.PriceProduction
         public async Task ProducePrice(string symbol, BufferBlock<StockPrice> pricesBuffer)
         {
             Console.WriteLine($"Producing price for {symbol}");
-            var lastprice = pricesRepository.GetLastPrice(symbol);
-            var price = await stockPriceCalculator.CalculatePrice(symbol, lastprice?.Price);
-            Console.WriteLine($"Produced price ${price}");
-            pricesBuffer.Post(price);
+
+            var lastPrice = pricesRepository.GetLastPrice(symbol);
+            if (lastPrice == null)
+            {
+                Console.WriteLine($"Could not produce price as no last price exists for {symbol}");
+            }
+            else
+            {
+                var price = await stockPriceCalculator.CalculatePrice(symbol, lastPrice.Price, lastPrice.DateTime.AddSeconds(1));
+
+                Console.WriteLine($"Produced price ${price}");
+
+                pricesBuffer.Post(price);
+            }
         }
     }
 }
