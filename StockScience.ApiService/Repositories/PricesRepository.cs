@@ -2,7 +2,12 @@
 
 namespace StockScience.PriceApi.Repositories
 {
-    public class PricesRepository
+    public interface IPricesRepository
+    {
+        StockPrice? GetLastPrice(string symbol);
+    }
+
+    public class PricesRepository : IPricesRepository
     {
         private Dictionary<string, Stack<StockPrice>> prices = new Dictionary<string, Stack<StockPrice>>();
 

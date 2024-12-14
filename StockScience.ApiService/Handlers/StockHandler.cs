@@ -4,10 +4,8 @@ using System.Globalization;
 
 namespace StockScience.PriceApi.Handlers
 {
-    public class StockHandler()
+    public class StockHandler(IPricesRepository pricesRepository)
     {
-        private PricesRepository pricesRepository = new PricesRepository();
-
         public int? GetPrice(string symbol)
         {
             Console.WriteLine($"Getting price for {symbol}");

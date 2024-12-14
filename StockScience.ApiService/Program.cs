@@ -1,4 +1,5 @@
 using StockScience.PriceApi.Handlers;
+using StockScience.PriceApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,15 +9,18 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddProblemDetails();
 
+builder.Services.AddSingleton<StockHandler>();
+builder.Services.AddSingleton<IPricesRepository, PricesRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
 
-app.MapGet("/stock/{symbol}", (string symbol) =>
+app.MapGet("/stock/{symbol}", (StockHandler stockHandler, string symbol) =>
 {
-    return new StockHandler().GetPrice(symbol);
+    return stockHandler.GetPrice(symbol);
 })
 .WithName("GetStockPrice");
 
